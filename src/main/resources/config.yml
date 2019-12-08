@@ -1,0 +1,10 @@
+# The following specifies the message a player will see when
+# connecting from an IP address found in any of the specified sources
+kickMessage: "You have connected from a VPN (your ip = %ip%) which is not allowed on this server. Please disconnect from your VPN and re-join."
+
+# A list of IP-addresses which should be blocked.
+# Only IPv4 addresses are supported as of now.
+# Addresses can be just an ip address, such as "123.123.123.123",
+# or an ip address with a mask, such as the following: "123.123.123.0/24"
+sources:
+  - "https://raw.githubusercontent.com/ejrv/VPNs/master/vpn-ipv4.txt"
