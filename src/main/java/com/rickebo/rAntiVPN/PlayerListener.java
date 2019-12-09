@@ -28,7 +28,7 @@ public class PlayerListener implements Listener
 			if (ip.startsWith("/") || ip.startsWith("\\"))
 				ip = ip.substring(1);
 			
-			IP playerIp = G.database.parseIp(ip);
+			IP playerIp = IP.parseIp(ip);
 			if (!G.database.containsIp(playerIp))
 				return;
 			

@@ -9,4 +9,5 @@ public class G
 	public static Database database;
 	public static Plugin plugin;
 	public static PlayerListener listener;
+	public static DatabaseUpdater updater;
 }

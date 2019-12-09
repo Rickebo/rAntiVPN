@@ -39,15 +39,17 @@ public class Initializer extends Plugin
 	
 	public void initDatabase()
 	{
-		getLogger().info("Downloading from sources...");
-		Database database = new Database();
-		Downloader downloader = new Downloader(database::inputLine);
+		G.database = new Database();
+		G.updater = new DatabaseUpdater(G.settings.getUpdateInterval() * 1000, G.settings.getUpdateDelay(),
+		                                db -> G.database = db,
+		                                str -> getLogger().info(str));
 		
-		for (String source : G.settings.getSources())
-			downloader.download(source);
-		
-		G.database = database;
-		getLogger().info("Download has finished.");
+		G.updater.start();
+	}
+	
+	public void initTimer()
+	{
+	
 	}
 	
 	public void initEvents()
