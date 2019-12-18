@@ -1,5 +1,7 @@
 package com.rickebo.rAntiVPN;
 
+import com.sun.istack.internal.NotNull;
+
 public class IP
 {
 	public int f;
@@ -22,9 +24,16 @@ public class IP
 		return ((Integer) f).hashCode() + ((Integer) mask).hashCode();
 	}
 	
+	@NotNull
 	public static IP parseIp(String text)
 	{
+		if (text == null)
+			throw new InvalidIpException("Null is not a valid IP address.");
+		
 		String[] parts = text.split("/");
+		
+		if (parts.length == 0)
+			throw new InvalidIpException("Null is not a valid IP address.");
 		
 		String ipStr = parts[0];
 		String maskStr = parts.length >= 2 ? parts[1] : "32";
@@ -32,14 +41,35 @@ public class IP
 		String[] ipParts = ipStr.split("\\.");
 		
 		if (ipParts.length != 4)
-			return null;
+			throw new InvalidIpException("IP address \"" + text + "\" is invalid.");
 		
-		long a = Long.parseLong(ipParts[0]);
-		long b = Long.parseLong(ipParts[1]);
-		long c = Long.parseLong(ipParts[2]);
-		long d = Long.parseLong(ipParts[3]);
+		long a,b,c,d;
 		
-		int mask = Integer.parseInt(maskStr);
+		try
+		{
+			a = Long.parseLong(ipParts[0]);
+			b = Long.parseLong(ipParts[1]);
+			c = Long.parseLong(ipParts[2]);
+			d = Long.parseLong(ipParts[3]);
+		} catch (RuntimeException ex)
+		{
+			throw new InvalidIpException("Could not parse IP address parts for the following IP: \"" + text + "\".", ex);
+		}
+		
+		if (a < 0 || a > 255 || b < 0 || b > 255 || c < 0 || c > 255 || d < 0 || d > 255)
+			throw new InvalidIpException("IP address part is outside bounds a valid IP address part (0-255): \"" + text + "\".");
+		
+		int mask;
+		try
+		{
+			mask = Integer.parseInt(maskStr);
+		} catch (RuntimeException ex)
+		{
+			throw new InvalidIpException("IP mask is invalid: \"" + text + "\".", ex);
+		}
+		
+		if (mask < 0 || mask > 32)
+			throw new InvalidIpException("IP mask is outside bounds of valid IP mask: \"" + text + "\".");
 		
 		IP ip = new IP();
 		

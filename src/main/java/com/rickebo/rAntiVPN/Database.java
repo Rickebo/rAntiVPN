@@ -13,6 +13,13 @@ public class Database
 	
 	public boolean inputLine(String line)
 	{
+		if (line == null || line.isEmpty())
+			return false;
+		
+		char first = line.charAt(0);
+		if (first == '#' || first == '/')
+			return false;
+		
 		try
 		{
 			IP parsed = IP.parseIp(line);

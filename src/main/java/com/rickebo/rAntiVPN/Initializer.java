@@ -54,6 +54,6 @@ public class Initializer extends Plugin
 	
 	public void initEvents()
 	{
-		G.listener = new PlayerListener(G.plugin);
+		G.listener = new PlayerListener(G.plugin, G.settings.getWhitelistIds());
 	}
 }
