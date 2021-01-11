@@ -9,6 +9,8 @@ public class Settings
 	private List<String> sources;
 	private List<String> whitelistIds;
 	
+	private List<String> sourceDirectories = null;
+	
 	private long updateInterval = 3600;
 	private long updateDelay = 0;
 	
@@ -17,6 +19,16 @@ public class Settings
 	public Settings()
 	{
 	
+	}
+	
+	public List<String> getSourceDirectories()
+	{
+		return sourceDirectories;
+	}
+	
+	public void setSourceDirectories(List<String> sourceDirectories)
+	{
+		this.sourceDirectories = sourceDirectories;
 	}
 	
 	public boolean isBlockInvalidIps()

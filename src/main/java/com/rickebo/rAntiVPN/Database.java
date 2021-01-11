@@ -4,11 +4,27 @@ import java.util.HashSet;
 
 public class Database
 {
+	private boolean initialized = false;
 	private HashSet<IP> blocked;
 	
 	public Database()
 	{
 		blocked = new HashSet<>();
+	}
+	
+	public int size()
+	{
+		return blocked.size();
+	}
+	
+	public boolean isInitialized()
+	{
+		return initialized;
+	}
+	
+	public void setInitialized()
+	{
+		initialized = true;
 	}
 	
 	public boolean inputLine(String line)

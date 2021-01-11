@@ -49,6 +49,15 @@ public class PlayerListener implements Listener
 			PendingConnection connection = event.getConnection();
 			String ip = connection.getAddress().getAddress().toString();
 			
+			if (G.database == null || !G.database.isInitialized())
+			{
+				cancelJoin(event, "The server is still starting, please wait.",
+						"Kicking " + ip + ", rAntiVPN is still initializing.");
+				
+				return;
+			}
+			
+			
 			if (ip.startsWith("/") || ip.startsWith("\\"))
 				ip = ip.substring(1);
 			
