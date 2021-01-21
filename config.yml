@@ -1,0 +1,29 @@
+# The following specifies the message a player will see when
+# connecting from an IP address found in any of the specified sources
+kickMessage: "You have connected from a VPN (ip = %ip%) which is not allowed on this server. Please disconnect from your VPN and re-join."
+
+# The desired update interval (of the specified sources) in seconds
+updateInterval: 3600
+
+# The time, in milliseconds, to delay initial database update of
+# This setting can be used to reduce load on server during initialization.
+# Please note that while the database is un-initialized, no IP addresses will be blocked.
+updateDelay: 0
+
+# This setting specifies whether or not players connecting from
+# and invalid IP (i.e. an IPv6 address, as of now) are blocked access
+# to the server. An example of a such IP is any hostname, such as localhost
+blockInvalidIps: false
+
+# A list of IP-addresses which should be blocked.
+# Only IPv4 addresses are supported as of now.
+# Addresses can be just an ip address, such as "123.123.123.123",
+# or an ip address with a mask, such as the following: "123.123.123.0/24"
+# As of writing this, the following github contains many usable sources:
+# https://github.com/firehol/blocklist-ipsets
+# Also, see this website: http://iplists.firehol.org/
+sources:
+  - "https://raw.githubusercontent.com/ejrv/VPNs/master/vpn-ipv4.txt"
+  - "https://raw.githubusercontent.com/firehol/blocklist-ipsets/master/firehol_proxies.netset"
+  - "https://raw.githubusercontent.com/firehol/blocklist-ipsets/master/datacenters.netset"
+  - "https://raw.githubusercontent.com/firehol/blocklist-ipsets/master/firehol_proxies.netset"

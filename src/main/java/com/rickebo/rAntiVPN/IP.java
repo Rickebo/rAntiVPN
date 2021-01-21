@@ -1,11 +1,31 @@
 package com.rickebo.rAntiVPN;
 
-import com.sun.istack.internal.NotNull;
-
 public class IP
 {
 	public int f;
 	public int mask;
+	
+	public IP()
+	{
+	
+	}
+	
+	public IP(long l)
+	{
+		f = (int) ((l << 32) >> 32);
+		mask = (int) (l >> 32);
+	}
+	
+	public IP(int f, int mask)
+	{
+		this.f = f;
+		this.mask = mask;
+	}
+	
+	public long toLong()
+	{
+		return (long) f | ((long) mask << 32);
+	}
 	
 	@Override
 	public boolean equals(Object other)
@@ -24,7 +44,6 @@ public class IP
 		return ((Integer) f).hashCode() + ((Integer) mask).hashCode();
 	}
 	
-	@NotNull
 	public static IP parseIp(String text)
 	{
 		if (text == null)

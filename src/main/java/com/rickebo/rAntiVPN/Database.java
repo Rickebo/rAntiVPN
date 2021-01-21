@@ -1,15 +1,18 @@
 package com.rickebo.rAntiVPN;
 
+import org.agrona.collections.LongHashSet;
+
 import java.util.HashSet;
 
 public class Database
 {
 	private boolean initialized = false;
-	private HashSet<IP> blocked;
+	private final LongHashSet blocked;
 	
 	public Database()
 	{
-		blocked = new HashSet<>();
+		IP invalidIp = new IP(0, Integer.MAX_VALUE);
+		blocked = new LongHashSet(invalidIp.toLong());
 	}
 	
 	public int size()
@@ -43,7 +46,7 @@ public class Database
 			if (containsIp(parsed))
 				return false;
 			
-			blocked.add(parsed);
+			blocked.add(parsed.toLong());
 			return true;
 		} catch (Throwable ex)
 		{
@@ -60,7 +63,7 @@ public class Database
 			shifted.f = (ip.f >> shift) << shift;
 			shifted.mask = 32  - shift;
 			
-			if (blocked.contains(shifted))
+			if (blocked.contains(shifted.toLong()))
 				return true;
 		}
 		
